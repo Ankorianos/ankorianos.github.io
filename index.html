@@ -3,20 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro Kačenku ❤️</title>
+    <title>Pro moji Kačenku ❤️</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
-    <div class="card" id="card">
-        <div class="heart-icon">❤️</div>
-        
-        <h1 id="question">Miluješ mě?</h1>
-        
-        <div class="buttons">
-            <button id="btn-yes">Ano</button>
-            <button id="btn-no">Ne</button>
+    <div class="hearts-background" id="hearts-bg"></div>
+
+    <audio id="bg-music" src="music.mp3" loop></audio>
+
+    <div class="envelope-wrapper" id="envelope-wrapper">
+        <div class="envelope">
+            <div class="flap"></div>
+            <div class="pocket"></div>
+            <div class="letter">
+                <p>Pro Kačenku... 💌</p>
+            </div>
+            <div class="heart-seal">❤️</div>
+        </div>
+        <p class="click-hint">Klikni na obálku a otevři dopis</p>
+    </div>
+
+    <div class="card hidden" id="main-card">
+        <div class="card-content" id="card-content">
+            <div class="heart-icon">💝</div>
+            <h1 id="question">Miluješ mě?</h1>
+            
+            <div class="buttons">
+                <button id="btn-yes">Ano</button>
+                <button id="btn-no">Ne</button>
+            </div>
+        </div>
+
+        <div class="final-screen hidden" id="final-screen">
+            <h2>Já tebe ještě víc! 🥰</h2>
+            <div class="photo-frame">
+                <img src="kacenka.jpg" alt="Naše fotka"> 
+            </div>
+            <p class="love-letter">Jsi to nejlepší, co mě v životě potkalo. Děkuju za každý den s tebou! 👩‍❤️‍👨</p>
         </div>
     </div>
 

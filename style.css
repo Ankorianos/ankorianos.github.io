@@ -1,8 +1,13 @@
+:root {
+    --primary: #ff4b6e;
+    --primary-hover: #ff2a55;
+    --bg-gradient: linear-gradient(135deg, #ffe5ec 0%, #ffc2d1 100%);
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
@@ -10,43 +15,171 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #ffe5ec 0%, #ffc2d1 100%);
+    background: var(--bg-gradient);
+    font-family: 'Poppins', sans-serif;
     overflow: hidden;
+    perspective: 1000px;
 }
 
-.card {
+/* --- Efekt plovoucích srdíček na pozadí --- */
+.hearts-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.floating-heart {
+    position: absolute;
+    bottom: -50px;
+    color: rgba(255, 75, 110, 0.2);
+    font-size: 24px;
+    animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+
+/* --- ÚVODNÍ OBÁLKA --- */
+.envelope-wrapper {
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.5s ease;
+}
+
+.envelope {
+    position: relative;
+    width: 280px;
+    height: 180px;
+    background: #ff758f;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.flap {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-top: 100px solid #ff4d6d;
+    transform-origin: top;
+    transition: transform 0.4s ease 0.2s, z-index 0.2s ease 0.2s;
+    z-index: 4;
+}
+
+.pocket {
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 140px solid #ff85a1;
+    border-right: 140px solid #ff85a1;
+    border-bottom: 90px solid #ff85a1;
+    border-top: 90px solid transparent;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    z-index: 3;
+}
+
+.letter {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    width: 240px;
+    height: 140px;
     background: white;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(255, 75, 110, 0.2);
+    border-radius: 5px;
+    z-index: 2;
+    transition: transform 0.5s ease 0.4s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.letter p {
+    font-family: 'Caveat', cursive;
+    font-size: 26px;
+    color: var(--primary);
     text-align: center;
-    max-width: 450px;
-    width: 90%;
+}
+
+.heart-seal {
+    position: absolute;
+    top: 85px;
+    left: 125px;
+    font-size: 30px;
+    z-index: 5;
     transition: transform 0.3s ease;
 }
 
+.click-hint {
+    margin-top: 25px;
+    color: #ff4d6d;
+    font-weight: 600;
+    animation: pulse 1.5s infinite;
+}
+
+/* Animace otevření obálky */
+.envelope-wrapper.open .flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+.envelope-wrapper.open .letter {
+    transform: translateY(-80px);
+    z-index: 5;
+}
+
+.envelope-wrapper.open .heart-seal {
+    transform: scale(0);
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+}
+
+/* --- HLAVNÍ KARTA (GLASSMORPHISM) --- */
+.card {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(255, 75, 110, 0.15);
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    z-index: 5;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: scale(1);
+}
+
 .heart-icon {
-    font-size: 50px;
-    margin-bottom: 20px;
+    font-size: 55px;
+    margin-bottom: 15px;
     animation: heartbeat 1.2s infinite;
 }
 
-@keyframes heartbeat {
-    0% { transform: scale(1); }
-    20% { transform: scale(1.1); }
-    40% { transform: scale(1); }
-    60% { transform: scale(1.15); }
-    80%, 100% { transform: scale(1); }
-}
-
 h1 {
-    color: #ff4b6e;
-    font-size: 28px;
+    color: #cc2b4e;
+    font-size: 32px;
     margin-bottom: 30px;
-    min-height: 70px; /* Aby stránka neskákala, když se mění text */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    min-height: 80px;
+    font-family: 'Caveat', cursive;
 }
 
 .buttons {
@@ -58,9 +191,9 @@ h1 {
 }
 
 button {
-    padding: 12px 35px;
+    padding: 14px 38px;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 600;
     border: none;
     border-radius: 50px;
     cursor: pointer;
@@ -68,19 +201,58 @@ button {
 }
 
 #btn-yes {
-    background-color: #ff4b6e;
+    background-color: var(--primary);
     color: white;
-    box-shadow: 0 5px 15px rgba(255, 75, 110, 0.4);
+    box-shadow: 0 8px 20px rgba(255, 75, 110, 0.3);
 }
 
 #btn-yes:hover {
     transform: scale(1.1);
-    background-color: #ff2a55;
+    background-color: var(--primary-hover);
 }
 
 #btn-no {
-    background-color: #f0f0f0;
+    background-color: #ffffff;
+    color: #666;
+    position: absolute;
+    left: 55%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* --- FINÁLNÍ SCREEN S FOTKOU --- */
+.final-screen h2 {
+    font-family: 'Caveat', cursive;
+    color: var(--primary);
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.photo-frame {
+    width: 100%;
+    max-height: 250px;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 5px solid white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    margin-bottom: 20px;
+}
+
+.photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.love-letter {
+    font-size: 16px;
     color: #555;
-    position: absolute; /* Nutné pro utíkání tlačítka */
-    left: 55%; /* Výchozí pozice vedle "Ano" */
+    line-height: 1.6;
+    font-style: italic;
+}
+
+/* Pomocné třídy */
+.hidden {
+    display: none !important;
+    opacity: 0;
+    transform: scale(0.8);
 }
