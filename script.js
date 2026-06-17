@@ -51,36 +51,18 @@ envelopeWrapper.addEventListener('click', () => {
 });
 
 // --- OPRAVENÁ FUNKCE PRO TLAČÍTKO "NE" ---
-// 4. Logika pro utíkající tlačítko "Ne" - s kontrolou okrajů
+// 4. Logika pro utíkající tlačítko "Ne" (Původní funkční verze přes celou obrazovku)
 function moveNoButton() {
-    // Definujeme bezpečnou zónu od okraje obrazovky (v pixelech)
-    const margin = 50; 
+    const padding = 50; // Bezpečný odstup od krajů monitoru
     
-    // Šířka a výška okna prohlížeče
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
+    // Spočítáme náhodnou pozici kdekoli na obrazovce
+    const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - padding * 2) + padding;
+    const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - padding * 2) + padding;
     
-    // Šířka a výška samotného tlačítka
-    const btnWidth = btnNo.offsetWidth;
-    const btnHeight = btnNo.offsetHeight;
-    
-    // Vypočítáme maximální možnou pozici pro x a y
-    const maxX = windowWidth - btnWidth - margin;
-    const maxY = windowHeight - btnHeight - margin;
-    
-    // Vypočítáme náhodnou pozici, ale zajistíme, aby nebyla menší než 'margin'
-    let x = Math.random() * (maxX - margin) + margin;
-    let y = Math.random() * (maxY - margin) + margin;
-    
-    // Použijeme fixed pozici
+    // Vytrhneme tlačítko z karty a hodíme ho na absolutní souřadnice okna
     btnNo.style.position = 'fixed';
-    
-    // Aplikujeme nové souřadnice
     btnNo.style.left = `${x}px`;
     btnNo.style.top = `${y}px`;
-    
-    // Přidáme malý efekt, aby bylo vidět, že tlačítko uskočilo
-    btnNo.style.transition = 'all 0.1s ease'; // Rychlejší reakce
 }
 btnNo.addEventListener('mouseover', moveNoButton);
 // Na mobilech reagujeme na dotyk, ale zabráníme standardnímu kliknutí
