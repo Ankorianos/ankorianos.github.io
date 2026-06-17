@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ffe5ec 0%, #ffc2d1 100%);
+    overflow: hidden;
+}
+
+.card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(255, 75, 110, 0.2);
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    transition: transform 0.3s ease;
+}
+
+.heart-icon {
+    font-size: 50px;
+    margin-bottom: 20px;
+    animation: heartbeat 1.2s infinite;
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    20% { transform: scale(1.1); }
+    40% { transform: scale(1); }
+    60% { transform: scale(1.15); }
+    80%, 100% { transform: scale(1); }
+}
+
+h1 {
+    color: #ff4b6e;
+    font-size: 28px;
+    margin-bottom: 30px;
+    min-height: 70px; /* Aby stránka neskákala, když se mění text */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+    min-height: 60px;
+}
+
+button {
+    padding: 12px 35px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#btn-yes {
+    background-color: #ff4b6e;
+    color: white;
+    box-shadow: 0 5px 15px rgba(255, 75, 110, 0.4);
+}
+
+#btn-yes:hover {
+    transform: scale(1.1);
+    background-color: #ff2a55;
+}
+
+#btn-no {
+    background-color: #f0f0f0;
+    color: #555;
+    position: absolute; /* Nutné pro utíkání tlačítka */
+    left: 55%; /* Výchozí pozice vedle "Ano" */
+}
