@@ -11,7 +11,7 @@ const btnNo = document.getElementById('btn-no');
 const bgMusic = document.getElementById('bg-music');
 const heartsBg = document.getElementById('hearts-bg');
 
-// 1. Generování plovoucích srdíček na pozadí
+// 1. Generování plovoucích srdíček na pozadí (zůstává stejné)
 function createFloatingHeart() {
     const heart = document.createElement('div');
     heart.classList.add('floating-heart');
@@ -29,13 +29,13 @@ function createFloatingHeart() {
 }
 setInterval(createFloatingHeart, 400);
 
-// 2. Načtení otázek z JSONu
+// 2. Načtení otázek z JSONu (zůstává stejné)
 fetch('steps.json')
     .then(res => res.json())
     .then(data => questions = data)
     .catch(err => console.error("Chyba při načítání JSON:", err));
 
-// 3. Otevření obálky a start hry + hudby
+// 3. Otevření obálky a start hry + hudby (zůstává stejné)
 envelopeWrapper.addEventListener('click', () => {
     envelopeWrapper.classList.add('open');
     
@@ -50,20 +50,43 @@ envelopeWrapper.addEventListener('click', () => {
     }, 1200);
 });
 
-// 4. Logika pro utíkající tlačítko "Ne"
+// --- OPRAVENÁ FUNKCE PRO TLAČÍTKO "NE" ---
+// 4. Logika pro utíkající tlačítko "Ne" - s kontrolou okrajů
 function moveNoButton() {
-    const padding = 60;
-    const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - padding * 2) + padding;
-    const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - padding * 2) + padding;
+    // Definujeme bezpečnou zónu od okraje obrazovky (v pixelech)
+    const margin = 50; 
     
+    // Šířka a výška okna prohlížeče
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+    
+    // Šířka a výška samotného tlačítka
+    const btnWidth = btnNo.offsetWidth;
+    const btnHeight = btnNo.offsetHeight;
+    
+    // Vypočítáme maximální možnou pozici pro x a y
+    const maxX = windowWidth - btnWidth - margin;
+    const maxY = windowHeight - btnHeight - margin;
+    
+    // Vypočítáme náhodnou pozici, ale zajistíme, aby nebyla menší než 'margin'
+    let x = Math.random() * (maxX - margin) + margin;
+    let y = Math.random() * (maxY - margin) + margin;
+    
+    // Použijeme fixed pozici
     btnNo.style.position = 'fixed';
+    
+    // Aplikujeme nové souřadnice
     btnNo.style.left = `${x}px`;
     btnNo.style.top = `${y}px`;
+    
+    // Přidáme malý efekt, aby bylo vidět, že tlačítko uskočilo
+    btnNo.style.transition = 'all 0.1s ease'; // Rychlejší reakce
 }
 btnNo.addEventListener('mouseover', moveNoButton);
+// Na mobilech reagujeme na dotyk, ale zabráníme standardnímu kliknutí
 btnNo.addEventListener('touchstart', (e) => { e.preventDefault(); moveNoButton(); });
 
-// 5. Klikání na tlačítko "Ano"
+// 5. Klikání na tlačítko "Ano" (zůstává stejné)
 btnYes.addEventListener('click', () => {
     if (questions.length === 0) return;
 
@@ -85,7 +108,7 @@ btnYes.addEventListener('click', () => {
     }
 });
 
-// Nekonečný efekt konfet
+// Nekonečný efekt konfet (zůstává stejné)
 function startConfetti() {
     const duration = 20 * 1000;
     const animationEnd = Date.now() + duration;
