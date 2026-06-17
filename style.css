@@ -152,7 +152,6 @@ body {
 }
 
 /* --- HLAVNÍ KARTA (GLASSMORPHISM) --- */
-/* Najdi sekci .card a přidej do ní position: relative a overflow: hidden */
 .card {
     background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(10px);
@@ -165,10 +164,8 @@ body {
     max-width: 450px;
     width: 90%;
     z-index: 5;
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    
-    position: relative; /* DŮLEŽITÉ: Zamkne tlačítko uvnitř karty */
-    overflow: hidden;   /* DŮLEŽITÉ: Nepustí tlačítko přes okraj karty */
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: scale(1);
 }
 
 .heart-icon {
@@ -214,13 +211,12 @@ button {
     background-color: var(--primary-hover);
 }
 
-
 #btn-no {
     background-color: #ffffff;
     color: #666;
+    position: absolute;
+    left: 55%;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    position: absolute; /* Změněno z fixed na absolute */
-    transition: left 0.2s ease, top 0.2s ease; /* Plynulý uskok */
 }
 
 /* --- FINÁLNÍ SCREEN S FOTKOU --- */
